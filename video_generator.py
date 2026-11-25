@@ -66,7 +66,7 @@ def create_frame(word, count):
         fill=config.TEXT_COLOR
     )
 
-    # Occurrence counter (bottom-right)
+    # Occurrence counter (centered below the word)
     count_text = f"{count}x"
 
     count_font = load_font(
@@ -76,10 +76,12 @@ def create_frame(word, count):
 
     bbox = draw.textbbox((0, 0), count_text, font=count_font)
     count_width = bbox[2] - bbox[0]
-    count_height = bbox[3] - bbox[1]
 
-    x = config.WIDTH - count_width - config.COUNT_MARGIN - bbox[0]
-    y = config.HEIGHT - count_height - config.COUNT_MARGIN - bbox[1]
+    # Center horizontally below the main word
+    x = (config.WIDTH - count_width) / 2 - bbox[0]
+
+    # Position below the main word
+    y = (config.HEIGHT + text_height) / 2 + 40 - bbox[1]
 
     draw.text(
         (x, y),
