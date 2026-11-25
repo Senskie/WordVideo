@@ -222,8 +222,9 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# in and output
+# in-, output and cache
 .txt
 .mp3
 output/
 input/
+cache/

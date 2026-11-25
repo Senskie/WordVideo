@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-from moviepy import ImageClip, concatenate_videoclips
+from moviepy import ImageClip, AudioFileClip, concatenate_videoclips
 import numpy as np
 
 import config
@@ -97,24 +97,42 @@ def create_frame(word, count):
     return image
 
 
-def generate_video(words, counts, output_file):
-    """Generate a video with one word per fixed-duration clip."""
+def generate_video(words, counts, audio_files, output_file):
+    """Generate a video with synchronized speech and text."""
 
     clips = []
+    audio_clips = []
 
     for word in words:
 
         count = counts[word.casefold()]
 
+        # Generate visual frame
         frame = create_frame(word, count)
 
+        # Load corresponding audio
+        audio = AudioFileClip(
+            str(audio_files[word.casefold()])
+        )
+
+        audio_clips.append(audio)
+
+        # Ensure the word remains visible until speech finishes
+        duration = max(
+            config.WORD_DURATION,
+            audio.duration + config.AUDIO_TAIL
+        )
+
+        # Combine image and audio
         clip = (
             ImageClip(np.array(frame))
-            .with_duration(config.WORD_DURATION)
+            .with_duration(duration)
+            .with_audio(audio)
         )
 
         clips.append(clip)
 
+    # Combine all clips
     video = concatenate_videoclips(
         clips,
         method="chain"
@@ -124,10 +142,14 @@ def generate_video(words, counts, output_file):
         output_file,
         fps=config.FPS,
         codec="libx264",
-        audio=False
+        audio_codec="aac"
     )
 
+    # Close resources
     video.close()
 
     for clip in clips:
         clip.close()
+
+    for audio in audio_clips:
+        audio.close()

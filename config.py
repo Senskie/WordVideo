@@ -23,3 +23,21 @@ COUNT_MARGIN = 50
 INPUT_NAME = "WreckingBall"
 INPUT_FILE = "input/" + INPUT_NAME + ".txt"
 OUTPUT_FILE = "output/" + INPUT_NAME + "_video.mp4"
+
+# Text-to-speech
+TTS_ENABLED = True
+
+# Microsoft Edge neural voice
+TTS_VOICE = "en-US-AriaNeural"
+
+# Speech rate: "+0%" is normal speed
+TTS_RATE = "+0%"
+
+# Minimum duration of each word
+WORD_DURATION = 1.5
+
+# Extra time after speech finishes
+AUDIO_TAIL = 0.25
+
+# Audio cache
+AUDIO_CACHE_DIR = "cache/audio"

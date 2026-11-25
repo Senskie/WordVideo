@@ -1,17 +1,24 @@
 from pathlib import Path
 
 import config
+
 from text_processor import load_words, process_words
+from speech_generator import prepare_speech
 from video_generator import generate_video
 
 
 def main():
 
-    # Load input
-    words = load_words(config.INPUT_FILE)
+    # Load and process input
+    raw_words = load_words(config.INPUT_FILE)
 
-    # Count occurrences
-    words, counts = process_words(words)
+    words, counts = process_words(raw_words)
+
+    # Prepare speech
+    if config.TTS_ENABLED:
+        audio_files = prepare_speech(words)
+    else:
+        audio_files = {}
 
     # Create output directory
     Path(config.OUTPUT_FILE).parent.mkdir(
@@ -23,12 +30,12 @@ def main():
     generate_video(
         words,
         counts,
+        audio_files,
         config.OUTPUT_FILE
     )
 
     print(f"Video saved to {config.OUTPUT_FILE}")
-    print(f"Number of words: {len(words)}")
-    print(f"Video duration: {len(words) * config.WORD_DURATION:.2f} seconds")
+    print(f"Unique words: {len(words)}")
 
 
 if __name__ == "__main__":
