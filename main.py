@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import config
-from text_processor import load_words, count_words
+from text_processor import load_words, process_words
 from video_generator import generate_video
 
 
@@ -11,7 +11,7 @@ def main():
     words = load_words(config.INPUT_FILE)
 
     # Count occurrences
-    counts = count_words(words)
+    words, counts = process_words(words)
 
     # Create output directory
     Path(config.OUTPUT_FILE).parent.mkdir(

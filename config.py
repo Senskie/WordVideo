@@ -4,7 +4,7 @@ HEIGHT = 1080
 FPS = 30
 
 # Timing
-WORD_DURATION = 1.5  # seconden per woord
+WORD_DURATION = .25  # seconden per woord
 
 # Achtergrond
 BACKGROUND_COLOR = "#000000"

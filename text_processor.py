@@ -14,7 +14,27 @@ def load_words(filename):
     return words
 
 
-def count_words(words):
-    """Count the occurrences of each word (case-insensitive)."""
+def process_words(words):
+    """
+    Count word occurrences and return unique words.
 
-    return Counter(word.casefold() for word in words)
+    Word counting is case-insensitive.
+    Original spelling and first occurrence order are preserved.
+    """
+
+    counts = Counter(word.casefold() for word in words)
+
+    unique_words = list(dict.fromkeys(
+        word.casefold() for word in words
+    ))
+
+    # Preserve the original spelling of the first occurrence
+    display_words = {}
+    for word in words:
+        display_words.setdefault(word.casefold(), word)
+
+    unique_words = [
+        display_words[word] for word in unique_words
+    ]
+
+    return unique_words, counts
