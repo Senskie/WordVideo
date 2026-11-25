@@ -53,11 +53,16 @@ def create_frame(word, count):
     )
 
     bbox = draw.textbbox((0, 0), word, font=font)
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
 
+    text_width = bbox[2] - bbox[0]
+
+    # Center horizontally
     x = (config.WIDTH - text_width) / 2 - bbox[0]
-    y = (config.HEIGHT - text_height) / 2 - bbox[1]
+
+    # Fixed baseline for every word
+    baseline = config.HEIGHT / 2
+
+    y = baseline - font.getmetrics()[0]
 
     draw.text(
         (x, y),
@@ -77,11 +82,10 @@ def create_frame(word, count):
     bbox = draw.textbbox((0, 0), count_text, font=count_font)
     count_width = bbox[2] - bbox[0]
 
-    # Center horizontally below the main word
     x = (config.WIDTH - count_width) / 2 - bbox[0]
 
-    # Position below the main word
-    y = (config.HEIGHT + text_height) / 2 + 40 - bbox[1]
+    # Fixed position below the baseline
+    y = baseline + 60 - bbox[1]
 
     draw.text(
         (x, y),
