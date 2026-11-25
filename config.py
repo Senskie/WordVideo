@@ -7,7 +7,7 @@ FPS = 30
 WORD_DURATION = .25  # seconden per woord
 
 # Achtergrond
-BACKGROUND_COLOR = "#000000"
+BACKGROUND_COLOR = "#3979d9"
 
 # Hoofdtekst
 TEXT_COLOR = "#FFFFFF"
@@ -20,7 +20,7 @@ COUNT_FONT_SIZE = 35
 COUNT_MARGIN = 50
 
 # Bestanden
-INPUT_NAME = "WreckingBall"
+INPUT_NAME = "BlackAndYellow"
 INPUT_FILE = "input/" + INPUT_NAME + ".txt"
 OUTPUT_FILE = "output/" + INPUT_NAME + "_video.mp4"
 
@@ -31,13 +31,13 @@ TTS_ENABLED = True
 TTS_VOICE = "en-US-AriaNeural"
 
 # Speech rate: "+0%" is normal speed
-TTS_RATE = "+0%"
+TTS_RATE = "+100%"
 
 # Minimum duration of each word
-WORD_DURATION = 1.5
+WORD_DURATION = 0
 
 # Extra time after speech finishes
-AUDIO_TAIL = 0.25
+AUDIO_TAIL = 0
 
 # Audio cache
 AUDIO_CACHE_DIR = "cache/audio"
